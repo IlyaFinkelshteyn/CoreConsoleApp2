@@ -1,0 +1,13 @@
+version: 1.0.{build}
+image: Visual Studio 2017
+build_script:
+- cmd: dotnet publish coreconsoleapp2 --output %appveyor_build_folder%\dist.%appveyor_build_version%
+artifacts:
+- path: dist.$(appveyor_build_version)
+  type: OctopusPackage
+deploy:
+- provider: Octopus
+  push_packages: true
+  server: http://ilyaf-octopus.southcentralus.cloudapp.azure.com
+  api_key:
+    secure: DprCBgYjrOddUOZoaHugfldKrgWUS7tC+CYK6ET4MIk=
